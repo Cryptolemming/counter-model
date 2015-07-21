@@ -1,0 +1,40 @@
+@import 'reset.css';
+
+body {
+	background: #dedede;
+	font-family: Georgia;
+}
+
+.container {
+	padding: 150px;
+}
+
+button {
+	padding: 5px;
+	margin: 15px;
+	border-radius: 5px;
+	color: #dedede;
+	font-size: 50px;
+	font-style: bold;
+	border: 0;
+	width: 75px;
+	outline: none;
+}
+
+button:active {
+	box-shadow: inset 1px 1px 5px black;
+}
+
+.count {
+	font-size: 200px;
+	color: #444;
+	font-style: bold;
+}
+
+.add-button {
+	background: blue;
+}
+
+.subtract-button {
+	background: red;
+}
