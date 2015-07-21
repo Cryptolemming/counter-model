@@ -3,48 +3,41 @@
 'use strict';
 
 var AddButtons = React.createClass({
-	onClickHandler: function(evt) {
-		return this.props.onClick()
-	},
 	render: function() {
-		return (
-			<button className='add-button' onClick={this.props.onClickHandler}>+</button>
-		);
+		return <button className='add-button' onClick={this.props.onClick}>+</button>
 	}
 });
 
 var SubtractButtons = React.createClass({
 	render: function() {
-		return (
-			<button className='subtract-button' onClick={this.props.onClick}>-</button>
-		);
+		return <button className='subtract-button' onClick={this.props.onClick}>-</button>
 	}
 });
 
 var Counter = React.createClass({
 
-	onAdd: function(evt) {
+	onAdd: function() {
 		this.setState({
-			count: this.state.count++
+			count: this.state.count+=1,
 		})
 	},
 
-	onSubtract: function(evt) {
+	onSubtract: function() {
 		this.setState({
-			count: this.state.count--
+			count: this.state.count-=1,
 		})
 	},
 
 	getInitialState: function() {
 		return {
-			count: 10
+			count: 10,
 		};
 	},
 
 	render: function() {
 		return <div>
 			   	<div className='count'>{this.state.count}</div>
-			   	<AddButtons  onClick={this.onAdd} />
+			   	<AddButtons onClick={this.onAdd} />
 			   	<SubtractButtons onClick={this.onSubtract} />
 			   </div>
 	}

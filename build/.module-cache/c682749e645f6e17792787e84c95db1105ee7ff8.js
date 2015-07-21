@@ -18,13 +18,13 @@ var Counter = React.createClass({displayName: "Counter",
 
 	onAdd: function() {
 		this.setState({
-			count: this.state.count+=1,
+			count: this.count+=1,
 		})
 	},
 
 	onSubtract: function() {
 		this.setState({
-			count: this.state.count-=1,
+			count: 5675,
 		})
 	},
 
