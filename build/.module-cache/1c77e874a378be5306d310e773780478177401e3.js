@@ -35,7 +35,7 @@ var SubtractControls = React.createClass({displayName: "SubtractControls",
 
 var Refresh = React.createClass({displayName: "Refresh",
 	render: function() {
-		return React.createElement("button", {className: "refresh-button", onClick: this.props.onClick}, React.createElement("i", {className: "fa fa-refresh"}))
+		return React.createElement("li", {className: "refresh-button", onClick: this.props.onClick}, React.createElement("i", {className: "fa fa-refresh"}))
 	}
 });
 
@@ -94,9 +94,14 @@ var Counter = React.createClass({displayName: "Counter",
 	},
 
 	onRefresh: function() {
-		this.setState({
+		var cards = ['A', 'B', 'C'];
+		var played = [false, false, false];
+		return {
 			count: 10,
-		});
+			cards: cards,
+			played: played,
+			cardList: this.cardListCreation(cards, played),
+		};
 	},
 
 	getInitialState: function() {
@@ -116,6 +121,7 @@ var Counter = React.createClass({displayName: "Counter",
 	render: function() {
 		return React.createElement("div", null, 
 			   	React.createElement("div", {className: "count"}, this.state.count), 
+			   	React.createElement("div", null, React.createElement(AddButtons, {onClick: this.onAdd})), 
 			   	React.createElement("div", null, 
 				   	React.createElement("ul", {className: "button-list"}, 
 				   		this.state.buttonList

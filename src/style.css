@@ -3,6 +3,7 @@
 body {
 	background: #dedede;
 	font-family: Georgia;
+	color: #444;
 }
 
 a {
@@ -40,6 +41,27 @@ button:active {
 
 .subtract-button {
 	background: red;
+}
+
+.button-list {
+	list-style-type: none;
+	display: inline;
+}
+
+.counter-button {
+	background: red;
+	color: #dedede;
+	width: 75px;
+	font-size: 50px;
+	float: left;
+	border-radius: 5px;
+	margin: 5px;
+	text-align: center;
+	cursor: pointer;
+}
+
+.counter-button:active {
+	box-shadow: inset 1px 1px 5px black;
 }
 
 .cards {

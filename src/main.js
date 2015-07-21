@@ -24,6 +24,15 @@ var Card = React.createClass({
 	}
 });
 
+var SubtractControls = React.createClass({
+	onClickhandler: function(evt) {
+		return this.props.onClick(this.props.buttonIndex)
+	},
+	render: function() {
+		return <li className='counter-button' onClick={this.onClickhandler}>{this.props.buttonInt}</li>
+	}
+});
+
 var Refresh = React.createClass({
 	render: function() {
 		return <button className='refresh-button' onClick={this.props.onClick}><i className='fa fa-refresh'></i></button>
@@ -46,9 +55,13 @@ var Counter = React.createClass({
 		})
 	},
 
-	onSubtract: function() {
+	onSubtract: function(buttonIndex) {
+		var currentCount = this.state.count;
+		var buttonInts = this.state.buttonInts;
+		var value = buttonInts[buttonIndex];
+		var newCount = currentCount -= value;
 		this.setState({
-			count: this.state.count-=1,
+			count: newCount,
 		})
 	},
 
@@ -72,24 +85,30 @@ var Counter = React.createClass({
 		});
 	},
 
+	buttonListCreation: function(buttonInts) {
+		buttonInts = buttonInts || this.state.buttonInts;
+		var self = this;
+		return buttonInts.map(function (buttonInt, i) {
+			return <SubtractControls key={i} onClick={self.onSubtract} buttonInt={buttonInt} buttonIndex={i} />;
+		});
+	},
+
 	onRefresh: function() {
-		var cards = ['A', 'B', 'C'];
-		var played = [false, true, false];
 		this.setState({
 			count: 10,
-			cards: cards,
-			played: played,
-			cardList: this.cardListCreation(cards, played),
-		})
+		});
 	},
 
 	getInitialState: function() {
 		var cards = ['A', 'B', 'C'];
 		var played = [false, false, false];
+		var buttonInts = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 		return {
 			count: 10,
+			buttonInts: buttonInts,
 			cards: cards,
 			played: played,
+			buttonList: this.buttonListCreation(buttonInts),
 			cardList: this.cardListCreation(cards, played),
 		};
 	},
@@ -97,8 +116,11 @@ var Counter = React.createClass({
 	render: function() {
 		return <div>
 			   	<div className='count'>{this.state.count}</div>
-			   	<AddButtons onClick={this.onAdd} />
-			   	<SubtractButtons onClick={this.onSubtract} />
+			   	<div>
+				   	<ul className='button-list'>
+				   		{this.state.buttonList}
+				   	</ul>
+				</div>
 
 			   	<div className='refresh'><Refresh onClick={this.onRefresh} /></div>
 			   </div>

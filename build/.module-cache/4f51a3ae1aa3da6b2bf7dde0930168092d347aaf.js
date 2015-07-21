@@ -26,16 +26,16 @@ var Card = React.createClass({displayName: "Card",
 
 var SubtractControls = React.createClass({displayName: "SubtractControls",
 	onClickhandler: function(evt) {
-		return this.props.onClick(this.props.buttonIndex)
+		return this.props.onClick(this.props.buttonInt)
 	},
 	render: function() {
-		return React.createElement("li", {className: "counter-button", onClick: this.onClickhandler}, this.props.buttonInt)
+		return React.createElement("button", {className: "counter-button", onClick: this.onClickHandler}, "4")
 	}
 });
 
 var Refresh = React.createClass({displayName: "Refresh",
 	render: function() {
-		return React.createElement("button", {className: "refresh-button", onClick: this.props.onClick}, React.createElement("i", {className: "fa fa-refresh"}))
+		return React.createElement("li", {className: "refresh-button", onClick: this.props.onClick}, React.createElement("i", {className: "fa fa-refresh"}))
 	}
 });
 
@@ -55,11 +55,10 @@ var Counter = React.createClass({displayName: "Counter",
 		})
 	},
 
-	onSubtract: function(buttonIndex) {
+	onSubtract: function(buttonInt) {
 		var currentCount = this.state.count;
-		var buttonInts = this.state.buttonInts;
-		var value = buttonInts[buttonIndex];
-		var newCount = currentCount -= value;
+		var value = buttonInt;
+		var newCount = currentCount-=value;
 		this.setState({
 			count: newCount,
 		})
@@ -94,9 +93,17 @@ var Counter = React.createClass({displayName: "Counter",
 	},
 
 	onRefresh: function() {
-		this.setState({
+		var cards = ['A', 'B', 'C'];
+		var played = [false, false, false];
+		var buttonInts = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+		return {
 			count: 10,
-		});
+			buttonInts: buttonInts,
+			cards: cards,
+			played: played,
+			buttonList: this.buttonListCreation(buttonInts),
+			cardList: this.cardListCreation(cards, played),
+		};
 	},
 
 	getInitialState: function() {
@@ -116,11 +123,10 @@ var Counter = React.createClass({displayName: "Counter",
 	render: function() {
 		return React.createElement("div", null, 
 			   	React.createElement("div", {className: "count"}, this.state.count), 
-			   	React.createElement("div", null, 
-				   	React.createElement("ul", {className: "button-list"}, 
-				   		this.state.buttonList
-				   	)
-				), 
+			   	React.createElement(AddButtons, {onClick: this.onAdd}), 
+			   	React.createElement("ul", {className: "button-list"}, 
+			   		React.createElement(SubtractControls, {onClick: this.state.buttonList})
+			   	), 
 
 			   	React.createElement("div", {className: "refresh"}, React.createElement(Refresh, {onClick: this.onRefresh}))
 			   )

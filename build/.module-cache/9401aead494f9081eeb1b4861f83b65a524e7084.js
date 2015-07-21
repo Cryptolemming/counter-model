@@ -94,9 +94,9 @@ var Counter = React.createClass({displayName: "Counter",
 	},
 
 	onRefresh: function() {
-		this.setState({
+		return {
 			count: 10,
-		});
+		};
 	},
 
 	getInitialState: function() {
