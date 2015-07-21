@@ -69,3 +69,7 @@ button:active {
 .refresh-button:hover {
 	color: #009800;
 }
+
+.refresh-button:active {
+	box-shadow: none;
+}

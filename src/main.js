@@ -75,12 +75,12 @@ var Counter = React.createClass({
 	onRefresh: function() {
 		var cards = ['A', 'B', 'C'];
 		var played = [false, true, false];
-		return {
+		this.setState({
 			count: 10,
 			cards: cards,
 			played: played,
 			cardList: this.cardListCreation(cards, played),
-		};
+		})
 	},
 
 	getInitialState: function() {
