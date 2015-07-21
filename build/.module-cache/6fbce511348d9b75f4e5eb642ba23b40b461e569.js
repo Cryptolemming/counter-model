@@ -20,7 +20,7 @@ var Card = React.createClass({displayName: "Card",
 	},
 	render: function() {
 		var styling = this.props.styling(this.props.played);
-		return React.createElement("li", {className: "card", onClick: this.onClickHandler, style: styling}, this.props.card)
+		return React.createElement("li", {className: "card", onClick: this.onClickHandler, style: styling})
 	}
 });
 
@@ -99,7 +99,11 @@ var Counter = React.createClass({displayName: "Counter",
 			   	React.createElement("div", {className: "count"}, this.state.count), 
 			   	React.createElement(AddButtons, {onClick: this.onAdd}), 
 			   	React.createElement(SubtractButtons, {onClick: this.onSubtract}), 
-
+			   	React.createElement("div", null, 
+				   	React.createElement("ul", {className: "cards"}, 
+				   		this.state.cardList
+				   	)
+				), 
 			   	React.createElement("div", {className: "refresh"}, React.createElement(Refresh, {onClick: this.onRefresh}))
 			   )
 	}

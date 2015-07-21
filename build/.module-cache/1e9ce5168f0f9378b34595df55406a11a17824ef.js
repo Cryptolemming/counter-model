@@ -15,12 +15,13 @@ var SubtractButtons = React.createClass({displayName: "SubtractButtons",
 });
 
 var Card = React.createClass({displayName: "Card",
-	onClickhandler: function(evt) {
+	onClickhandler: function() {
 		return this.props.onClick(this.props.cardIndex)
 	},
 	render: function() {
 		var styling = this.props.styling(this.props.played);
-		return React.createElement("li", {className: "card", onClick: this.onClickHandler, style: styling}, this.props.card)
+		var index = this.props.cardIndex;
+		return React.createElement("li", {className: "card", onClick: this.props.onClick(index), style: styling}, this.props.card)
 	}
 });
 
@@ -55,11 +56,9 @@ var Counter = React.createClass({displayName: "Counter",
 	onCardPlay: function(cardIndex) {
 		var currentStatePlayed = this.state.played;
 		currentStatePlayed[cardIndex] = true;
-		var updatedCardList = this.cardListCreation(this.state.cards, currentStatePlayed);
 
 		this.setState({
 			played: currentStatePlayed,
-			cardList: updatedCardList,
 		})
 	},
 
@@ -74,7 +73,7 @@ var Counter = React.createClass({displayName: "Counter",
 
 	onRefresh: function() {
 		var cards = ['A', 'B', 'C'];
-		var played = [false, true, false];
+		var played = [false, false, false];
 		return {
 			count: 10,
 			cards: cards,
@@ -99,7 +98,11 @@ var Counter = React.createClass({displayName: "Counter",
 			   	React.createElement("div", {className: "count"}, this.state.count), 
 			   	React.createElement(AddButtons, {onClick: this.onAdd}), 
 			   	React.createElement(SubtractButtons, {onClick: this.onSubtract}), 
-
+			   	React.createElement("div", null, 
+				   	React.createElement("ul", {className: "cards"}, 
+				   		this.state.cardList
+				   	)
+				), 
 			   	React.createElement("div", {className: "refresh"}, React.createElement(Refresh, {onClick: this.onRefresh}))
 			   )
 	}

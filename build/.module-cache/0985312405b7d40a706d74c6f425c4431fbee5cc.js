@@ -14,26 +14,34 @@ var SubtractButtons = React.createClass({displayName: "SubtractButtons",
 	}
 });
 
-var Card = React.createClass({displayName: "Card",
-	onClickhandler: function(evt) {
-		return this.props.onClick(this.props.cardIndex)
-	},
+var CardOne = React.createClass({displayName: "CardOne",
 	render: function() {
-		var styling = this.props.styling(this.props.played);
-		return React.createElement("li", {className: "card", onClick: this.onClickHandler, style: styling}, this.props.card)
+		return React.createElement("button", {className: "card-button", onClick: this.props.onClick}, "A")
+	}
+});
+
+var CardTwo = React.createClass({displayName: "CardTwo",
+	render: function() {
+		return React.createElement("button", {className: "card-button", onClick: this.props.onClick}, "B")
+	}
+});
+
+var CardThree = React.createClass({displayName: "CardThree",
+	render: function() {
+		return React.createElement("button", {className: "card-button", onClick: this.props.onClick}, "C")
 	}
 });
 
 var Refresh = React.createClass({displayName: "Refresh",
 	render: function() {
-		return React.createElement("button", {className: "refresh-button", onClick: this.props.onClick}, React.createElement("i", {className: "fa fa-refresh"}))
+		return React.createElement("button", {className: "start-button", onClick: this.props.onClick}, React.createElement("i", {className: "fa fa-refresh"}))
 	}
 });
 
 var Counter = React.createClass({displayName: "Counter",
 
-	cardListStyling: function(played) {
-		if (played) {
+	cardButtonStyling: function(flipped) {
+		if (flipped) {
 			return {
 				background: '#444',
 			};
@@ -52,34 +60,13 @@ var Counter = React.createClass({displayName: "Counter",
 		})
 	},
 
-	onCardPlay: function(cardIndex) {
-		var currentStatePlayed = this.state.played;
-		currentStatePlayed[cardIndex] = true;
-		var updatedCardList = this.cardListCreation(this.state.cards, currentStatePlayed);
-
-		this.setState({
-			played: currentStatePlayed,
-			cardList: updatedCardList,
-		})
-	},
-
-	cardListCreation: function(cards, played) {
-		cards = cards || this.state.cards;
-		played = played || this.state.played;
-		var self = this;
-		return cards.map(function (card, i) {
-			return React.createElement(Card, {key: i, onClick: self.onCardPlay, styling: self.cardListStyling, card: card, played: played[i], cardIndex: i});
-		});
-	},
-
 	onRefresh: function() {
 		var cards = ['A', 'B', 'C'];
-		var played = [false, true, false];
+		var played = [false, false, false];
 		return {
 			count: 10,
 			cards: cards,
 			played: played,
-			cardList: this.cardListCreation(cards, played),
 		};
 	},
 
@@ -90,7 +77,6 @@ var Counter = React.createClass({displayName: "Counter",
 			count: 10,
 			cards: cards,
 			played: played,
-			cardList: this.cardListCreation(cards, played),
 		};
 	},
 
@@ -99,7 +85,6 @@ var Counter = React.createClass({displayName: "Counter",
 			   	React.createElement("div", {className: "count"}, this.state.count), 
 			   	React.createElement(AddButtons, {onClick: this.onAdd}), 
 			   	React.createElement(SubtractButtons, {onClick: this.onSubtract}), 
-
 			   	React.createElement("div", {className: "refresh"}, React.createElement(Refresh, {onClick: this.onRefresh}))
 			   )
 	}

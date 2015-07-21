@@ -74,7 +74,7 @@ var Counter = React.createClass({displayName: "Counter",
 
 	onRefresh: function() {
 		var cards = ['A', 'B', 'C'];
-		var played = [false, true, false];
+		var played = [false, false, false];
 		return {
 			count: 10,
 			cards: cards,
@@ -99,7 +99,11 @@ var Counter = React.createClass({displayName: "Counter",
 			   	React.createElement("div", {className: "count"}, this.state.count), 
 			   	React.createElement(AddButtons, {onClick: this.onAdd}), 
 			   	React.createElement(SubtractButtons, {onClick: this.onSubtract}), 
-
+			   	React.createElement("div", null, 
+				   	React.createElement("ul", {className: "cards"}, 
+				   		this.state.cardList
+				   	)
+				), 
 			   	React.createElement("div", {className: "refresh"}, React.createElement(Refresh, {onClick: this.onRefresh}))
 			   )
 	}

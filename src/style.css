@@ -5,8 +5,8 @@ body {
 	font-family: Georgia;
 }
 
-.container {
-	padding: 150px;
+a {
+	cursor: pointer;
 }
 
 button {
@@ -29,6 +29,9 @@ button:active {
 	font-size: 200px;
 	color: #444;
 	font-style: bold;
+	text-align: center;
+	width: 200px;
+	margin-left: 4px;
 }
 
 .add-button {
@@ -37,4 +40,32 @@ button:active {
 
 .subtract-button {
 	background: red;
+}
+
+.cards {
+	list-style-type: none;
+	display: inline;
+	color: #dedede;
+	font-weight: bold;
+}
+
+.card {
+	font-size: 25px;
+	float: left;
+	background: #00b100;
+	padding: 15px;
+}
+
+.refresh {
+	width: 200px;
+	text-align: center;
+}
+
+.refresh-button {
+	color: #444;
+	font-size: 75px;
+}
+
+.refresh-button:hover {
+	color: #009800;
 }
