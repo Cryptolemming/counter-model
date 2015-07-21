@@ -29,7 +29,16 @@ var SubtractControls = React.createClass({
 		return this.props.onClick(this.props.buttonIndex)
 	},
 	render: function() {
-		return <li className='counter-button' onClick={this.onClickhandler}>{this.props.buttonInt}</li>
+		return <li className='counter-button subtract-counter-button' onClick={this.onClickhandler}>{this.props.buttonInt}</li>
+	}
+});
+
+var AddControls = React.createClass({
+	onClickhandler: function(evt) {
+		return this.props.onClick(this.props.buttonIndex)
+	},
+	render: function() {
+		return <li className='counter-button add-counter-button' onClick={this.onClickhandler}>{this.props.buttonInt}</li>
 	}
 });
 
@@ -49,9 +58,13 @@ var Counter = React.createClass({
 		}
 	},		
 
-	onAdd: function() {
+	onAdd: function(buttonIndex) {
+		var currentCount = this.state.count;
+		var buttonInts = this.state.buttonInts;
+		var value = buttonInts[buttonIndex];
+		var newCount = currentCount += value;
 		this.setState({
-			count: this.state.count+=1,
+			count: newCount,
 		})
 	},
 
@@ -85,11 +98,19 @@ var Counter = React.createClass({
 		});
 	},
 
-	buttonListCreation: function(buttonInts) {
+	subtractButtonListCreation: function(buttonInts) {
 		buttonInts = buttonInts || this.state.buttonInts;
 		var self = this;
 		return buttonInts.map(function (buttonInt, i) {
 			return <SubtractControls key={i} onClick={self.onSubtract} buttonInt={buttonInt} buttonIndex={i} />;
+		});
+	},
+
+	addButtonListCreation: function(buttonInts) {
+		buttonInts = buttonInts || this.state.buttonInts;
+		var self = this;
+		return buttonInts.map(function (buttonInt, i) {
+			return <AddControls key={i} onClick={self.onAdd} buttonInt={buttonInt} buttonIndex={i} />;
 		});
 	},
 
@@ -108,7 +129,8 @@ var Counter = React.createClass({
 			buttonInts: buttonInts,
 			cards: cards,
 			played: played,
-			buttonList: this.buttonListCreation(buttonInts),
+			subtractButtonList: this.subtractButtonListCreation(buttonInts),
+			addButtonList: this.addButtonListCreation(buttonInts),
 			cardList: this.cardListCreation(cards, played),
 		};
 	},
@@ -116,13 +138,18 @@ var Counter = React.createClass({
 	render: function() {
 		return <div>
 			   	<div className='count'>{this.state.count}</div>
-			   	<div>
+			   	<div className='list-container'>
+	   			  	<ul className='button-list'>
+				   		{this.state.subtractButtonList}
+				   	</ul>
+				</div>
+				<div className='list-container'>
 				   	<ul className='button-list'>
-				   		{this.state.buttonList}
+				   		{this.state.addButtonList}
 				   	</ul>
 				</div>
 
-			   	<div className='refresh'><Refresh onClick={this.onRefresh} /></div>
+				<div className='refresh'><Refresh onClick={this.onRefresh} /></div>
 			   </div>
 	}
 });

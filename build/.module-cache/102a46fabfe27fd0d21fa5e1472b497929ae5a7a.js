@@ -138,17 +138,16 @@ var Counter = React.createClass({displayName: "Counter",
 	render: function() {
 		return React.createElement("div", null, 
 			   	React.createElement("div", {className: "count"}, this.state.count), 
-			   	React.createElement("div", {className: "list-container"}, 
-	   			  	React.createElement("ul", {className: "button-list"}, 
+			   	React.createElement("div", {className: "clearfix"}, 
+				   	React.createElement("ul", {className: "button-list"}, 
 				   		this.state.subtractButtonList
 				   	)
 				), 
-				React.createElement("div", {className: "list-container"}, 
+				React.createElement("div", {className: "clearfix"}, 
 				   	React.createElement("ul", {className: "button-list"}, 
 				   		this.state.addButtonList
 				   	)
 				), 
-
 				React.createElement("div", {className: "refresh"}, React.createElement(Refresh, {onClick: this.onRefresh}))
 			   )
 	}

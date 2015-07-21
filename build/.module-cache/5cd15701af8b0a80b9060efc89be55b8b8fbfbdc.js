@@ -29,16 +29,7 @@ var SubtractControls = React.createClass({displayName: "SubtractControls",
 		return this.props.onClick(this.props.buttonIndex)
 	},
 	render: function() {
-		return React.createElement("li", {className: "counter-button subtract-counter-button", onClick: this.onClickhandler}, this.props.buttonInt)
-	}
-});
-
-var AddControls = React.createClass({displayName: "AddControls",
-	onClickhandler: function(evt) {
-		return this.props.onClick(this.props.buttonIndex)
-	},
-	render: function() {
-		return React.createElement("li", {className: "counter-button add-counter-button", onClick: this.onClickhandler}, this.props.buttonInt)
+		return React.createElement("li", {className: "counter-button", onClick: this.onClickhandler}, this.props.buttonInt)
 	}
 });
 
@@ -58,13 +49,9 @@ var Counter = React.createClass({displayName: "Counter",
 		}
 	},		
 
-	onAdd: function(buttonIndex) {
-		var currentCount = this.state.count;
-		var buttonInts = this.state.buttonInts;
-		var value = buttonInts[buttonIndex];
-		var newCount = currentCount += value;
+	onAdd: function() {
 		this.setState({
-			count: newCount,
+			count: this.state.count+=1,
 		})
 	},
 
@@ -98,19 +85,11 @@ var Counter = React.createClass({displayName: "Counter",
 		});
 	},
 
-	subtractButtonListCreation: function(buttonInts) {
+	buttonListCreation: function(buttonInts) {
 		buttonInts = buttonInts || this.state.buttonInts;
 		var self = this;
 		return buttonInts.map(function (buttonInt, i) {
 			return React.createElement(SubtractControls, {key: i, onClick: self.onSubtract, buttonInt: buttonInt, buttonIndex: i});
-		});
-	},
-
-	addButtonListCreation: function(buttonInts) {
-		buttonInts = buttonInts || this.state.buttonInts;
-		var self = this;
-		return buttonInts.map(function (buttonInt, i) {
-			return React.createElement(AddControls, {key: i, onClick: self.onAdd, buttonInt: buttonInt, buttonIndex: i});
 		});
 	},
 
@@ -129,8 +108,7 @@ var Counter = React.createClass({displayName: "Counter",
 			buttonInts: buttonInts,
 			cards: cards,
 			played: played,
-			subtractButtonList: this.subtractButtonListCreation(buttonInts),
-			addButtonList: this.addButtonListCreation(buttonInts),
+			buttonList: this.buttonListCreation(buttonInts),
 			cardList: this.cardListCreation(cards, played),
 		};
 	},
@@ -138,18 +116,14 @@ var Counter = React.createClass({displayName: "Counter",
 	render: function() {
 		return React.createElement("div", null, 
 			   	React.createElement("div", {className: "count"}, this.state.count), 
-			   	React.createElement("div", {className: "list-container"}, 
-	   			  	React.createElement("ul", {className: "button-list"}, 
-				   		this.state.subtractButtonList
-				   	)
-				), 
-				React.createElement("div", {className: "list-container"}, 
+			   	React.createElement("div", {className: "refresh"}, React.createElement(Refresh, {onClick: this.onRefresh})), 
+			   	React.createElement("div", null, 
 				   	React.createElement("ul", {className: "button-list"}, 
-				   		this.state.addButtonList
+				   		this.state.buttonList
 				   	)
-				), 
+				)
 
-				React.createElement("div", {className: "refresh"}, React.createElement(Refresh, {onClick: this.onRefresh}))
+			   	
 			   )
 	}
 });

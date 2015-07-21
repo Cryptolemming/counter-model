@@ -29,7 +29,7 @@ var SubtractControls = React.createClass({displayName: "SubtractControls",
 		return this.props.onClick(this.props.buttonIndex)
 	},
 	render: function() {
-		return React.createElement("li", {className: "counter-button subtract-counter-button", onClick: this.onClickhandler}, this.props.buttonInt)
+		return React.createElement("li", {className: "subtract-counter-button", onClick: this.onClickhandler}, this.props.buttonInt)
 	}
 });
 
@@ -38,7 +38,7 @@ var AddControls = React.createClass({displayName: "AddControls",
 		return this.props.onClick(this.props.buttonIndex)
 	},
 	render: function() {
-		return React.createElement("li", {className: "counter-button add-counter-button", onClick: this.onClickhandler}, this.props.buttonInt)
+		return React.createElement("li", {className: "add-counter-button", onClick: this.onClickhandler}, this.props.buttonInt)
 	}
 });
 
@@ -138,18 +138,17 @@ var Counter = React.createClass({displayName: "Counter",
 	render: function() {
 		return React.createElement("div", null, 
 			   	React.createElement("div", {className: "count"}, this.state.count), 
-			   	React.createElement("div", {className: "list-container"}, 
-	   			  	React.createElement("ul", {className: "button-list"}, 
+			   	React.createElement("div", {className: "refresh"}, React.createElement(Refresh, {onClick: this.onRefresh})), 
+			   	React.createElement("div", null, 
+				   	React.createElement("ul", {className: "button-list"}, 
 				   		this.state.subtractButtonList
-				   	)
-				), 
-				React.createElement("div", {className: "list-container"}, 
+				   	), 
 				   	React.createElement("ul", {className: "button-list"}, 
 				   		this.state.addButtonList
 				   	)
-				), 
+				)
 
-				React.createElement("div", {className: "refresh"}, React.createElement(Refresh, {onClick: this.onRefresh}))
+			   	
 			   )
 	}
 });
